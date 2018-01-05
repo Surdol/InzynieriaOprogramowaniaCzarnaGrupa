@@ -73,7 +73,7 @@ public class MainStory extends Story {
 
         mainPoint = null;
         for (String s: transform){
-            newPointDepth = countSpaces(s)/4;
+            newPointDepth = countSpaces(s)/countSpaces(transform.get(0));
             if(newPointDepth==1){
                 mainPoint = new Point( s,newPointDepth);
                 addToList(mainPoint);
