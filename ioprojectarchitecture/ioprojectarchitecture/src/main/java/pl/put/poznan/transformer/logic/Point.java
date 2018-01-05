@@ -7,11 +7,10 @@ public class Point {
     private SubStory subStory;
 
     public Point(String text, int depth) {
-        this.setText(text);
+        this.setText(text.trim());
         this.setDepth(depth);
         this.setSubStory(null);
     }
-
 
     public int getDepth() {
         return depth;
@@ -47,6 +46,11 @@ public class Point {
 
     @Override
     public String toString() {
-        return this.depth+":"+this.text+" "+this.subStory;
+        if(this.subStory==null){
+            return this.depth+":"+this.text;
+        }
+        else{
+            return this.depth+":"+this.text+" "+this.subStory;
+        }
     }
 }
