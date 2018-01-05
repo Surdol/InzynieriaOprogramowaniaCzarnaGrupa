@@ -64,18 +64,13 @@ public class MainStory extends Story {
     public String transformToPoints(String filename) throws IOException {
         List<String> transform = readFile(filename);
 
-        //this.setPointList(new ArrayList<>());
-
-        int spaces, actualDepth = 0, actualSpaces,newPointDepth;
-        Story prevStory;
+        int newPointDepth;
         Point point, mainPoint,curPoint;
         //set tittle, wyodrębnij z nagłówka aktorów czy coś.
         setTitle(transform.get(0));
         transform.remove(0);
         System.out.println(this.getTitle());    /////////////////////////////////////////////////////////////////////////
 
-
-        prevStory=null;
         mainPoint = null;
         for (String s: transform){
             newPointDepth = countSpaces(s)/4;
