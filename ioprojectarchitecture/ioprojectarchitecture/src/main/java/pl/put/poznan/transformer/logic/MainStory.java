@@ -60,13 +60,12 @@ public class MainStory extends Story {
         return spaces;
     }
 
-
     public String transformToPoints(String filename) throws IOException {
         List<String> transform = readFile(filename);
 
         int newPointDepth;
         Point point, mainPoint,curPoint;
-        //set tittle, wyodrębnij z nagłówka aktorów czy coś.
+        //set tittle, wyodrębnij z nagłówka aktorów czy coś.   /////////////////////////////////////////////////////////////////////////
         setTitle(transform.get(0));
         transform.remove(0);
         System.out.println(this.getTitle());    /////////////////////////////////////////////////////////////////////////
@@ -74,13 +73,13 @@ public class MainStory extends Story {
         mainPoint = null;
         for (String s: transform){
             newPointDepth = countSpaces(s)/countSpaces(transform.get(0));
+            point = new Point( s, newPointDepth);
             if(newPointDepth==1){
-                mainPoint = new Point( s,newPointDepth);
+                mainPoint = point;
                 addToList(mainPoint);
             }
             else{
                 curPoint=mainPoint;
-                point = new Point( s, newPointDepth);
                 while(newPointDepth!=curPoint.getDepth()+1){
                     curPoint=curPoint.getSubStory().getPointList().get(curPoint.getSubStory().getPointList().size()-1);
                 }
@@ -89,11 +88,10 @@ public class MainStory extends Story {
                 }
                 curPoint.getSubStory().addToList(point);
             }
-            System.out.println(newPointDepth+": "+s.substring(newPointDepth*4));   /////////////////////////////////////////////////////////////////////////////////
+            System.out.println(newPointDepth+": "+point.getText());   /////////////////////////////////////////////////////////////////////////////////
         }
 
-        System.out.println(this);
-
+        System.out.println(this);               /////////////////////////////////////////////////////////////////////////
 
         return "Sukces";
     }
