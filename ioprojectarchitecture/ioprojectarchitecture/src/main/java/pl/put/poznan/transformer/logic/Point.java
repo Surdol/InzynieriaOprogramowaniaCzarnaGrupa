@@ -47,6 +47,6 @@ public class Point {
 
     @Override
     public String toString() {
-        return this.subStory+" "+this.depth+":"+this.text;
+        return this.depth+":"+this.text+" "+this.subStory;
     }
 }
