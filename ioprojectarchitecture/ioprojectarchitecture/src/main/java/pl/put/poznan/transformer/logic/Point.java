@@ -44,4 +44,9 @@ public class Point {
     public void setSubStory(SubStory subStory) {
         this.subStory = subStory;
     }
+
+    @Override
+    public String toString() {
+        return this.subStory+" "+this.depth+":"+this.text;
+    }
 }

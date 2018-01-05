@@ -21,4 +21,9 @@ public class Story {
     public void setPointList(List<Point> pointList) {
         this.pointList = pointList;
     }
+
+    @Override
+    public String toString() {
+        return pointList.toString();
+    }
 }

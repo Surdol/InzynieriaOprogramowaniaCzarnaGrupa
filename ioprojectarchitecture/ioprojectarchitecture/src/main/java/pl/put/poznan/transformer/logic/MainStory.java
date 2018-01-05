@@ -63,24 +63,41 @@ public class MainStory extends Story {
 
     public String transformToPoints(String filename) throws IOException {
         List<String> transform = readFile(filename);
-        this.setPointList(new ArrayList<>());
 
-        int spaces, actualDepth = 0, actualSpaces;
+        //this.setPointList(new ArrayList<>());
 
+        int spaces, actualDepth = 0, actualSpaces,newPointDepth;
+        Story prevStory;
+        Point point, mainPoint,curPoint;
+        //set tittle, wyodrębnij z nagłówka aktorów czy coś.
         setTitle(transform.get(0));
         transform.remove(0);
+        System.out.println(this.getTitle());    /////////////////////////////////////////////////////////////////////////
 
-        List<Integer> depths = findDepths(transform);
 
-        for (String s : transform) {
-            if (countSpaces(s) == depths.get(0)) {
-                addToList(new Point(s, 1));
+        prevStory=null;
+        mainPoint = null;
+        for (String s: transform){
+            newPointDepth = countSpaces(s)/4;
+            if(newPointDepth==1){
+                mainPoint = new Point( s,newPointDepth);
+                addToList(mainPoint);
             }
+            else{
+                curPoint=mainPoint;
+                point = new Point( s, newPointDepth);
+                while(newPointDepth!=curPoint.getDepth()+1){
+                    curPoint=curPoint.getSubStory().getPointList().get(curPoint.getSubStory().getPointList().size()-1);
+                }
+                if(curPoint.getSubStory()==null){
+                    curPoint.setSubStory(new SubStory());
+                }
+                curPoint.getSubStory().addToList(point);
+            }
+            System.out.println(newPointDepth+": "+s.substring(newPointDepth*4));   /////////////////////////////////////////////////////////////////////////////////
         }
-        depths.remove(0);
-        for (Integer i : depths) {
 
-        }
+        System.out.println(this);
 
 
         return "Sukces";
@@ -110,4 +127,5 @@ public class MainStory extends Story {
     public void setLength(int length) {
         this.length = length;
     }
+
 }
