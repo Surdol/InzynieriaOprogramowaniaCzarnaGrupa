@@ -10,11 +10,18 @@ import pl.put.poznan.transformer.logic.MainStory;
 
 import java.io.IOException;
 
+/**
+ *
+ */
 @EnableAutoConfiguration
 @Controller
 @SpringBootApplication(scanBasePackages = {"pl.put.poznan.transformer.rest"})
 public class TextTransformerApplication {
 
+    /**
+     * @return
+     * @throws IOException
+     */
     @RequestMapping("/")
     @ResponseBody
     public String mainPage() throws IOException {
@@ -29,6 +36,9 @@ public class TextTransformerApplication {
         return "Kupa";
     }
 
+    /**
+     * @param args
+     */
     public static void main(String[] args) {
         SpringApplication.run(TextTransformerApplication.class, args);
     }

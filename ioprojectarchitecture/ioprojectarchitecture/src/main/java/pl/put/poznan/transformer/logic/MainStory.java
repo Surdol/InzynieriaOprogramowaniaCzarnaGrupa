@@ -7,19 +7,42 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Klasa reprezentująca scenariusz główny (pierwszy poziom zagłębienia)
+ *
+ * @see SubStory
+ */
 public class MainStory extends Story {
+    /**
+     * Nagłówek scenariusza
+     */
     private String title;
+    /**
+     * Aktorzy wyszczególnieni w nagłówku
+     */
     private String[] actors;
+    /**
+     * Długość wszystkich kroków (także z podscenariuszami)
+     */
     private int length;
 
+    /**
+     * Konstruktor klasy
+     * @see Story
+     */
     public MainStory() {
         super();
     }
 
+    /**
+     * Metoda wczytująca scenariusz z pliku tekstowego jako listę punktów
+     * @param filename Ścieżka do pliku scenariusza
+     * @return Przy powodzeniu - listę punktów scenariusza, w przeciwnym razie null
+     * @throws IOException Krzaczy się przy braku pliku
+     */
     public List readFile(String filename) throws IOException {
         String filePath = new File("").getAbsolutePath();
         BufferedReader in = new BufferedReader(new FileReader(filePath + '/' + filename));
@@ -36,19 +59,11 @@ public class MainStory extends Story {
         return null;
     }
 
-    public ArrayList<Integer> findDepths(List<String> list) {
-        ArrayList<Integer> depths = new ArrayList<>();
-
-        for (String s : list) {
-            Integer d = countSpaces(s);
-            if (!depths.contains(d)) depths.add(d);
-        }
-
-        Collections.sort(depths);
-
-        return depths;
-    }
-
+    /**
+     * Funkcja obliczająca poziom zagłębienia danej linijki
+     * @param s linijka
+     * @return liczbę spacji / tabulacji
+     */
     public int countSpaces(String s) {
         int spaces = 0;
         for (int i = 0; i < s.length(); i++) {
@@ -60,35 +75,41 @@ public class MainStory extends Story {
         return spaces;
     }
 
+    /**
+     * Metoda zmieniająca wczytaną listę punktów na poprawne struktury
+     * @param filename Ścieżka do pliku ze scenariuszem
+     * @TODO wywalić, bo to gupie i przekazywać samą listę
+     * @return @TODO wywalić, bo to gupie
+     * @throws IOException
+     */
     public String transformToPoints(String filename) throws IOException {
         List<String> transform = readFile(filename);
 
         int newPointDepth;
-        Point point, mainPoint,curPoint;
+        Point point, mainPoint, curPoint;
         //set tittle, wyodrębnij z nagłówka aktorów czy coś.   /////////////////////////////////////////////////////////////////////////
         setTitle(transform.get(0));
         transform.remove(0);
         System.out.println(this.getTitle());    /////////////////////////////////////////////////////////////////////////
 
         mainPoint = null;
-        for (String s: transform){
-            newPointDepth = countSpaces(s)/countSpaces(transform.get(0));
-            point = new Point( s, newPointDepth);
-            if(newPointDepth==1){
+        for (String s : transform) {
+            newPointDepth = countSpaces(s) / countSpaces(transform.get(0));
+            point = new Point(s, newPointDepth);
+            if (newPointDepth == 1) {
                 mainPoint = point;
                 addToList(mainPoint);
-            }
-            else{
-                curPoint=mainPoint;
-                while(newPointDepth!=curPoint.getDepth()+1){
-                    curPoint=curPoint.getSubStory().getPointList().get(curPoint.getSubStory().getPointList().size()-1);
+            } else {
+                curPoint = mainPoint;
+                while (newPointDepth != curPoint.getDepth() + 1) {
+                    curPoint = curPoint.getSubStory().getPointList().get(curPoint.getSubStory().getPointList().size() - 1);
                 }
-                if(curPoint.getSubStory()==null){
+                if (curPoint.getSubStory() == null) {
                     curPoint.setSubStory(new SubStory());
                 }
                 curPoint.getSubStory().addToList(point);
             }
-            System.out.println(newPointDepth+": "+point.getText());   /////////////////////////////////////////////////////////////////////////////////
+            System.out.println(newPointDepth + ": " + point.getText());   /////////////////////////////////////////////////////////////////////////////////
         }
 
         System.out.println(this);               /////////////////////////////////////////////////////////////////////////
@@ -101,9 +122,11 @@ public class MainStory extends Story {
         return title;
     }
 
+
     public void setTitle(String title) {
         this.title = title;
     }
+
 
     public String[] getActors() {
         return actors;
