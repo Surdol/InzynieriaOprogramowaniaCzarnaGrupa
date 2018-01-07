@@ -77,4 +77,5 @@ public class Point {
             return this.depth+":"+this.text+" "+this.subStory;
         }
     }
+
 }

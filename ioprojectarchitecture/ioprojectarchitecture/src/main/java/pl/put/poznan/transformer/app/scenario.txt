@@ -1,4 +1,4 @@
-    To jest naglowek. Taki nagłówkowy nagłówek. ~Bartek (Tak, dopisałem bo mogę i widzę że to to w konsoli lepiej XD)
+    To jest naglowek. Aktorzy: Kupa, Dupa
     Bibliotekarz wybiera opcje dodania nowej pozycji książkowej
     Wyświetla się formularz.
     Bibliotekarz podaje dane książki.

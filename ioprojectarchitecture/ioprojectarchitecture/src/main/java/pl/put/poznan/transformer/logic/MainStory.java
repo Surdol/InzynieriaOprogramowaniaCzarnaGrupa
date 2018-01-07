@@ -20,10 +20,12 @@ public class MainStory extends Story {
      * Nagłówek scenariusza
      */
     private String title;
+
+
     /**
-     * Aktorzy wyszczególnieni w nagłówku
+     * Lista aktorów z nagłówka
      */
-    private String[] actors;
+    private List<String> actors;
     /**
      * Długość wszystkich kroków (także z podscenariuszami)
      */
@@ -35,6 +37,7 @@ public class MainStory extends Story {
      */
     public MainStory() {
         super();
+        this.setActors(new ArrayList<>());
     }
 
     /**
@@ -76,6 +79,26 @@ public class MainStory extends Story {
     }
 
     /**
+     * Funkcja przetwarzająca tytuł na nagłówek i aktorów
+     *
+     * @param s nagłówek scenariusza
+     */
+    //@TODO dorzucić wyjątki
+    public void readTitle(String s) {
+        String actor = "Aktorzy: ";
+        String[] afterSplit;
+        afterSplit = s.split(actor, -2);
+
+        this.setTitle(afterSplit[0]);
+        String[] split2 = afterSplit[1].split(",", -2);
+
+        for (String s2 : split2) {
+            if (!s2.equalsIgnoreCase(",")) actors.add(s2.trim());
+        }
+
+    }
+
+    /**
      * Metoda zmieniająca wczytaną listę punktów na poprawne struktury
      * @param filename Ścieżka do pliku ze scenariuszem
      * @TODO wywalić, bo to gupie i przekazywać samą listę
@@ -87,8 +110,7 @@ public class MainStory extends Story {
 
         int newPointDepth;
         Point point, mainPoint, curPoint;
-        //set tittle, wyodrębnij z nagłówka aktorów czy coś.   /////////////////////////////////////////////////////////////////////////
-        setTitle(transform.get(0));
+        readTitle(transform.get(0));
         transform.remove(0);
         System.out.println(this.getTitle());    /////////////////////////////////////////////////////////////////////////
 
@@ -128,14 +150,6 @@ public class MainStory extends Story {
     }
 
 
-    public String[] getActors() {
-        return actors;
-    }
-
-    public void setActors(String[] actors) {
-        this.actors = actors;
-    }
-
     public int getLength() {
         return length;
     }
@@ -144,4 +158,11 @@ public class MainStory extends Story {
         this.length = length;
     }
 
+    public void setActors(List<String> actors) {
+        this.actors = actors;
+    }
+
+    public List<String> getActors() {
+        return actors;
+    }
 }
