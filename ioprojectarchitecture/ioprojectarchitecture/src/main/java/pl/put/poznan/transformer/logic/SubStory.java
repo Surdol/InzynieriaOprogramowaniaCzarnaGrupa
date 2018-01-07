@@ -14,6 +14,9 @@ public class SubStory extends Story {
         super();
     }
 
+    /**
+     * @param v
+     */
     @Override
     public void accept(Visitor v) {
         v.visit(this);

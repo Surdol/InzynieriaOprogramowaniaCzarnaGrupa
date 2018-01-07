@@ -48,5 +48,8 @@ public abstract class Story {
         return pointList.toString();
     }
 
+    /**
+     * @param v
+     */
     public abstract void accept(Visitor v);
 }
