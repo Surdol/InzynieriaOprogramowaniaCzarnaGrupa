@@ -13,4 +13,9 @@ public class SubStory extends Story {
     public SubStory() {
         super();
     }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
+    }
 }

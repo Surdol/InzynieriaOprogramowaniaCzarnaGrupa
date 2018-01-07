@@ -47,4 +47,6 @@ public abstract class Story {
     public String toString() {
         return pointList.toString();
     }
+
+    public abstract void accept(Visitor v);
 }

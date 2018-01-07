@@ -40,6 +40,11 @@ public class MainStory extends Story {
         this.setActors(new ArrayList<>());
     }
 
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
+    }
+
     /**
      * Metoda wczytująca scenariusz z pliku tekstowego jako listę punktów
      * @param filename Ścieżka do pliku scenariusza
@@ -139,16 +144,13 @@ public class MainStory extends Story {
         return "Sukces";
     }
 
-
     public String getTitle() {
         return title;
     }
 
-
     public void setTitle(String title) {
         this.title = title;
     }
-
 
     public int getLength() {
         return length;

@@ -10,5 +10,6 @@
             System prosi o podanie danych egzemplarza
             Bibliotekarz podaje dane egzemplarza i zatwierdza.
             System informuje o poprawnym dodaniu egzemplarza i prezentuje zaktualizowaną listę egzemplarzy.
+                Ekstra wcięcie, bo czemu nie?
     Bibliotekarz zatwierdza dodanie książki.
     System informuje o poprawnym dodaniu książki.
