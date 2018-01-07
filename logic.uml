@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>pl.put.poznan.transformer.logic</OriginalElement>
+  <nodes>
+    <node x="129.0" y="0.0">pl.put.poznan.transformer.logic.Story</node>
+    <node x="116.5" y="499.0">pl.put.poznan.transformer.logic.Visitor</node>
+    <node x="0.0" y="754.0">pl.put.poznan.transformer.logic.TextTransformer</node>
+    <node x="225.0" y="204.0">pl.put.poznan.transformer.logic.MainStory</node>
+    <node x="0.0" y="288.5">pl.put.poznan.transformer.logic.SubStory</node>
+    <node x="491.0" y="499.0">pl.put.poznan.transformer.logic.Point</node>
+    <node x="233.0" y="629.0">pl.put.poznan.transformer.logic.SomeFeatureVisitor</node>
+    <node x="0.0" y="629.0">pl.put.poznan.transformer.logic.AnotherFeatureVisitor</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="pl.put.poznan.transformer.logic.AnotherFeatureVisitor" target="pl.put.poznan.transformer.logic.Visitor">
+      <point x="0.0" y="-40.0" />
+      <point x="106.5" y="604.0" />
+      <point x="169.75" y="604.0" />
+      <point x="-53.25" y="40.0" />
+    </edge>
+    <edge source="pl.put.poznan.transformer.logic.SubStory" target="pl.put.poznan.transformer.logic.Story">
+      <point x="0.0" y="-40.5" />
+      <point x="102.5" y="179.0" />
+      <point x="183.75" y="179.0" />
+      <point x="-54.75" y="77.0" />
+    </edge>
+    <edge source="pl.put.poznan.transformer.logic.MainStory" target="pl.put.poznan.transformer.logic.Story">
+      <point x="0.0" y="-125.0" />
+      <point x="374.5" y="179.0" />
+      <point x="293.25" y="179.0" />
+      <point x="54.75" y="77.0" />
+    </edge>
+    <edge source="pl.put.poznan.transformer.logic.SomeFeatureVisitor" target="pl.put.poznan.transformer.logic.Visitor">
+      <point x="0.0" y="-40.0" />
+      <point x="339.5" y="604.0" />
+      <point x="276.25" y="604.0" />
+      <point x="53.25" y="40.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="340.0" y="430.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
