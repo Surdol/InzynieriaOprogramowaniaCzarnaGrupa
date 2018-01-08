@@ -6,3 +6,5 @@ http://moodle.cs.put.poznan.pl/course/view.php?id=100
 
 redmine projektu
 https://io.cs.put.poznan.pl/redmine/projects/io-mike-roop
+
+test jenkinsa
