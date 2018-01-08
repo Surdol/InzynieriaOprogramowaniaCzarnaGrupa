@@ -49,7 +49,8 @@ public abstract class Story {
     }
 
     /**
-     * @param v
+     * Klasa do obsługi wizytatora
+     * @param v wizytator dla funkcjonalności
      */
     public abstract void accept(Visitor v);
 }

@@ -41,7 +41,8 @@ public class MainStory extends Story {
     }
 
     /**
-     * @param v
+     * Klasa do akceptacji wizytatora
+     * @param v wizytator danej funkcjonalności
      */
     @Override
     public void accept(Visitor v) {

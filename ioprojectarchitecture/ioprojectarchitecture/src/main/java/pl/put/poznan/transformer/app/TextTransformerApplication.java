@@ -33,7 +33,7 @@ public class TextTransformerApplication {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "Kupa";
+        return "Niepowodzenie";
     }
 
     /**

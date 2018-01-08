@@ -15,7 +15,8 @@ public class SubStory extends Story {
     }
 
     /**
-     * @param v
+     * Klasa do obsługi wizytatora
+     * @param v wizytator danej funkcjonalności
      */
     @Override
     public void accept(Visitor v) {

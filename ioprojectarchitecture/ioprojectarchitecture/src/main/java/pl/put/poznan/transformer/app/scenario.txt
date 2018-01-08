@@ -1,4 +1,4 @@
-    To jest naglowek. Aktorzy: Kupa, Dupa
+    To jest naglowek. Aktorzy: Bibliotekarz, System
     Bibliotekarz wybiera opcje dodania nowej pozycji książkowej
     Wyświetla się formularz.
     Bibliotekarz podaje dane książki.
