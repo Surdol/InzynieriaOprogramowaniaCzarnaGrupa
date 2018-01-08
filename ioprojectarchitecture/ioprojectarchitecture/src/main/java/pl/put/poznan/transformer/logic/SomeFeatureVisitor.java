@@ -5,7 +5,8 @@ package pl.put.poznan.transformer.logic;
  */
 public class SomeFeatureVisitor implements Visitor {
     /**
-     * @param st
+     *
+     * @param st instancja głównego scenariusza
      */
     @Override
     public void visit(MainStory st) {
