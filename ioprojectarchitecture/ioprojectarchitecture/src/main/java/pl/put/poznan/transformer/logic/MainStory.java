@@ -110,9 +110,9 @@ public class MainStory extends Story {
     /**
      * Metoda zmieniająca wczytaną listę punktów na poprawne struktury
      * @param filename Ścieżka do pliku ze scenariuszem
-     * @TODO wywalić, bo to gupie i przekazywać samą listę
-     * @return @TODO wywalić, bo to gupie
-     * @throws IOException
+     * TODO wywalić, bo to gupie i przekazywać samą listę
+     * @return TODO wywalić, bo to gupie
+     * @throws IOException wyjatek
      */
     public String transformToPoints(String filename) throws IOException {
         List<String> transform = readFile(filename);
