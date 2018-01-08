@@ -15,9 +15,11 @@ public class MainStory extends Story {
     private String title;
     private String[] actors;
     private int length;
+    private int keyWorldsCount;
 
     public MainStory() {
         super();
+        this.setKeyWorldsCount(0);
     }
 
     public List readFile(String filename) throws IOException {
@@ -43,9 +45,7 @@ public class MainStory extends Story {
             Integer d = countSpaces(s);
             if (!depths.contains(d)) depths.add(d);
         }
-
         Collections.sort(depths);
-
         return depths;
     }
 
@@ -62,40 +62,65 @@ public class MainStory extends Story {
 
     public String transformToPoints(String filename) throws IOException {
         List<String> transform = readFile(filename);
+        int newPointDepth, countKeyWorlds = 0;
+        Point point, mainPoint = null, curPoint;
 
-        int newPointDepth;
-        Point point, mainPoint,curPoint;
         //set tittle, wyodrębnij z nagłówka aktorów czy coś.   /////////////////////////////////////////////////////////////////////////
         setTitle(transform.get(0));
         transform.remove(0);
-        System.out.println(this.getTitle());    /////////////////////////////////////////////////////////////////////////
 
-        mainPoint = null;
-        for (String s: transform){
-            newPointDepth = countSpaces(s)/countSpaces(transform.get(0));
-            point = new Point( s, newPointDepth);
-            if(newPointDepth==1){
-                mainPoint = point;
-                addToList(mainPoint);
-            }
-            else{
-                curPoint=mainPoint;
-                while(newPointDepth!=curPoint.getDepth()+1){
-                    curPoint=curPoint.getSubStory().getPointList().get(curPoint.getSubStory().getPointList().size()-1);
+        //System.out.println(this.getTitle());    /////////////////////////////////////////////////////////////////////////
+
+        try {
+
+
+            int prevdepth = 0;
+            for (String s : transform) {
+                newPointDepth = countSpaces(s) / countSpaces(transform.get(0));
+                //System.out.println(newPointDepth);    //////////////////////////////////////////////////////////////////////////
+                if (newPointDepth - 1 > prevdepth) {
+                    throw new BadFormatException();
                 }
-                if(curPoint.getSubStory()==null){
-                    curPoint.setSubStory(new SubStory());
+                prevdepth = newPointDepth;
+                point = new Point(s.trim(), newPointDepth);
+                if (point.getText().contains("FOR EACH") || point.getText().contains("ELSE") || point.getText().contains("IF")) {
+                    ++countKeyWorlds;
                 }
-                curPoint.getSubStory().addToList(point);
+
+                if (newPointDepth == 1) {
+                    mainPoint = point;
+                    addToList(mainPoint);
+                } else {
+                    curPoint = mainPoint;
+                    while (newPointDepth != curPoint.getDepth() + 1) {
+                        curPoint = curPoint.getSubStory().getPointList().get(curPoint.getSubStory().getPointList().size() - 1);
+                    }
+                    if (curPoint.getSubStory() == null) {
+                        curPoint.setSubStory(new SubStory());
+                    }
+                    curPoint.getSubStory().addToList(point);
+                }
+                //System.out.println(newPointDepth+": "+point.getText());   /////////////////////////////////////////////////////////////////////////////////
             }
-            System.out.println(newPointDepth+": "+point.getText());   /////////////////////////////////////////////////////////////////////////////////
+            this.setKeyWorldsCount(countKeyWorlds);
+            System.out.println(this.getKeyWorldsCount());           /////////////////////////////////////////////////////////////////////////
+            //System.out.println(this);               /////////////////////////////////////////////////////////////////////////
+        } catch (BadFormatException e) {
+            System.out.println("Nieprawidłowy format pliku.");
+            //e.printStackTrace();
         }
-
-        System.out.println(this);               /////////////////////////////////////////////////////////////////////////
+        //System.out.println(this.extractFullStory());    ///////////////////////////////////////////////////////////////////////
 
         return "Sukces";
     }
+    //needRepair
+    public List<String> extractFullStory(){
+        return extractToLevel(0, "");
+    }
 
+    public List<String> extractToDepth(int depth){
+        return extractToLevel(depth,"");
+    }
 
     public String getTitle() {
         return title;
@@ -121,4 +146,12 @@ public class MainStory extends Story {
         this.length = length;
     }
 
+
+    public int getKeyWorldsCount() {
+        return keyWorldsCount;
+    }
+
+    public void setKeyWorldsCount(int keyWorldsCount) {
+        this.keyWorldsCount = keyWorldsCount;
+    }
 }
