@@ -12,3 +12,4 @@ jenkins 4 raz prosze, rusz się!
 
 AUTOMATYZACJA JUZ!
 intelijj mowi rusz sie!
+mvn site test
