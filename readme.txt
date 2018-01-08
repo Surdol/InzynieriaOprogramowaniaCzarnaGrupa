@@ -11,3 +11,4 @@ test jenkinsa drugi
 jenkins 4 raz prosze, rusz się!
 
 AUTOMATYZACJA JUZ!
+intelijj mowi rusz sie!
