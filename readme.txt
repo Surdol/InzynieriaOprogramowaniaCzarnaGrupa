@@ -8,4 +8,4 @@ redmine projektu
 https://io.cs.put.poznan.pl/redmine/projects/io-mike-roop
 
 test jenkinsa drugi
-T
+jenkins 3 raz prosze, rusz się
