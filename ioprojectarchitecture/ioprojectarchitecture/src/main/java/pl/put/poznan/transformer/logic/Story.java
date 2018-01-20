@@ -53,4 +53,32 @@ public abstract class Story {
      * @param v wizytator dla funkcjonalności
      */
     public abstract void accept(Visitor v);
+
+    /**
+     * Funkcja do wyodrębnienia danego poziomu
+     *
+     * @param level      poziom do wyodrębnienia
+     * @param prevNumber poprzedni numer
+     */
+    public List<String> extractToLevel(int level, String prevNumber) {
+        Integer i = 1;
+        List<String> returnString = null;
+        if (level == 0) {
+            level = Integer.MAX_VALUE;
+        }
+        for (Point point : this.getPointList()) {
+            if (point.getDepth() <= level) {
+                returnString.add(prevNumber + "." + i.toString() + point.getText());
+                if (point.getSubStory() != null) {
+                    for (String str : extractToLevel(level, i.toString())) {
+                        returnString.add(str);
+                    }
+                }
+                ++i;
+            }
+
+        }
+
+        return returnString;
+    }
 }

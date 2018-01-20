@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,6 +32,7 @@ public class MainStory extends Story {
      */
     private int length;
 
+    private int keyWorldsCount;
     /**
      * Konstruktor klasy
      * @see Story
@@ -38,6 +40,7 @@ public class MainStory extends Story {
     public MainStory() {
         super();
         this.setActors(new ArrayList<>());
+        this.setKeyWorldsCount(0);
     }
 
     /**
@@ -88,6 +91,23 @@ public class MainStory extends Story {
     }
 
     /**
+     * Funkcja wypisująca poziomy zagłębień
+     *
+     * @param list lista linijek wczytanego pliku
+     * @return lista numerów
+     */
+    public ArrayList<Integer> findDepths(List<String> list) {
+        ArrayList<Integer> depths = new ArrayList<>();
+
+        for (String s : list) {
+            Integer d = countSpaces(s);
+            if (!depths.contains(d)) depths.add(d);
+        }
+        Collections.sort(depths);
+        return depths;
+    }
+
+    /**
      * Funkcja przetwarzająca tytuł na nagłówek i aktorów
      *
      * @param s nagłówek scenariusza
@@ -96,14 +116,20 @@ public class MainStory extends Story {
     public void readTitle(String s) {
         String actor = "Aktorzy: ";
         String[] afterSplit;
+        actors = new ArrayList<>();
         afterSplit = s.split(actor, -2);
 
         this.setTitle(afterSplit[0].trim());
-        String[] split2 = afterSplit[1].split(",", -2);
+        try {
+            String[] split2 = afterSplit[1].split(",", -2);
 
-        for (String s2 : split2) {
-            if (!s2.equalsIgnoreCase(",")) actors.add(s2.trim());
+            for (String s2 : split2) {
+                if (!s2.equalsIgnoreCase(",")) actors.add(s2.trim());
+            }
+        } catch (Exception e) {
         }
+        ;
+
 
     }
 
@@ -117,35 +143,74 @@ public class MainStory extends Story {
     public String transformToPoints(String filename) throws IOException {
         List<String> transform = readFile(filename);
 
-        int newPointDepth;
-        Point point, mainPoint, curPoint;
+        int newPointDepth, countKeyWorlds = 0;
+        ;
+        Point point, mainPoint = null, curPoint;
         readTitle(transform.get(0));
         transform.remove(0);
         System.out.println(this.getTitle());    /////////////////////////////////////////////////////////////////////////
 
-        mainPoint = null;
-        for (String s : transform) {
-            newPointDepth = countSpaces(s) / countSpaces(transform.get(0));
-            point = new Point(s, newPointDepth);
-            if (newPointDepth == 1) {
-                mainPoint = point;
-                addToList(mainPoint);
-            } else {
-                curPoint = mainPoint;
-                while (newPointDepth != curPoint.getDepth() + 1) {
-                    curPoint = curPoint.getSubStory().getPointList().get(curPoint.getSubStory().getPointList().size() - 1);
-                }
-                if (curPoint.getSubStory() == null) {
-                    curPoint.setSubStory(new SubStory());
-                }
-                curPoint.getSubStory().addToList(point);
-            }
-            System.out.println(newPointDepth + ": " + point.getText());   /////////////////////////////////////////////////////////////////////////////////
-        }
+        try {
 
-        System.out.println(this);               /////////////////////////////////////////////////////////////////////////
+
+            int prevdepth = 0;
+            for (String s : transform) {
+                newPointDepth = countSpaces(s) / countSpaces(transform.get(0));
+                //System.out.println(newPointDepth);    //////////////////////////////////////////////////////////////////////////
+                if (newPointDepth - 1 > prevdepth) {
+                    throw new BadFormatException();
+                }
+                prevdepth = newPointDepth;
+                point = new Point(s.trim(), newPointDepth);
+                if (point.getText().contains("FOR EACH") || point.getText().contains("ELSE") || point.getText().contains("IF")) {
+                    ++countKeyWorlds;
+                }
+
+                if (newPointDepth == 1) {
+                    mainPoint = point;
+                    addToList(mainPoint);
+                } else {
+                    curPoint = mainPoint;
+                    while (newPointDepth != curPoint.getDepth() + 1) {
+                        curPoint = curPoint.getSubStory().getPointList().get(curPoint.getSubStory().getPointList().size() - 1);
+                    }
+                    if (curPoint.getSubStory() == null) {
+                        curPoint.setSubStory(new SubStory());
+                    }
+                    curPoint.getSubStory().addToList(point);
+                }
+                //System.out.println(newPointDepth+": "+point.getText());   /////////////////////////////////////////////////////////////////////////////////
+            }
+            this.setKeyWorldsCount(countKeyWorlds);
+            System.out.println(this.getKeyWorldsCount());           /////////////////////////////////////////////////////////////////////////
+            //System.out.println(this);               /////////////////////////////////////////////////////////////////////////
+        } catch (BadFormatException e) {
+            System.out.println("Nieprawidłowy format pliku.");
+            //e.printStackTrace();
+        }
+        //System.out.println(this.extractFullStory());    ///////////////////////////////////////////////////////////////////////
 
         return "Sukces";
+    }
+
+    /**
+     * Wyodrębnia cały scenariusz
+     *
+     * @return rekurencyjne wywołanie dla danego poziomu
+     */
+    public List<String> extractFullStory() {
+        return extractToLevel(0, "");
+    }
+
+
+    /**
+     * Wyodrębnia scenariusz do danego poziomu
+     *
+     * @param depth poziom
+     * @return rekurencyjne wywołanie dla poziomów
+     */
+    public List<String> extractToDepth(int depth) {
+        return extractToLevel(depth, "");
     }
 
     public String getTitle() {
@@ -170,5 +235,13 @@ public class MainStory extends Story {
 
     public List<String> getActors() {
         return actors;
+    }
+
+    public int getKeyWorldsCount() {
+        return keyWorldsCount;
+    }
+
+    public void setKeyWorldsCount(int keyWorldsCount) {
+        this.keyWorldsCount = keyWorldsCount;
     }
 }
