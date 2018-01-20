@@ -19,8 +19,8 @@ import java.io.IOException;
 public class TextTransformerApplication {
 
     /**
-     * @return
-     * @throws IOException
+     * @return cos
+     * @throws IOException wyjatek
      */
     @RequestMapping("/")
     @ResponseBody
@@ -37,7 +37,7 @@ public class TextTransformerApplication {
     }
 
     /**
-     * @param args
+     * @param args STRINGi pameli
      */
     public static void main(String[] args) {
         SpringApplication.run(TextTransformerApplication.class, args);
