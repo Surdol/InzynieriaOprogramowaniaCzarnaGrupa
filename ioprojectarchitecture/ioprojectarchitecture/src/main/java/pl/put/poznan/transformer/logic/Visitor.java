@@ -1,16 +1,18 @@
 package pl.put.poznan.transformer.logic;
 
 /**
- *
+ * Klasa do obsługi dodatkowych funkcjonalności z wykorzystaniem wzorca projektowego
  */
 public interface Visitor {
     /**
-     * @param st Mainstory hy hy
+     * Metoda odwiedzająca główny scenariusz
+     * @param st główny scenariusz
      */
     public void visit(MainStory st);
 
     /**
-     * @param sb SUBstory hy hy
+     * Metoda odwiedzająca podscenariusz
+     * @param sb podscenariusz
      */
     public void visit(SubStory sb);
 

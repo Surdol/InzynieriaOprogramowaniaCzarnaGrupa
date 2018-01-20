@@ -96,14 +96,20 @@ public class MainStory extends Story {
     public void readTitle(String s) {
         String actor = "Aktorzy: ";
         String[] afterSplit;
+        actors = new ArrayList<>();
         afterSplit = s.split(actor, -2);
 
         this.setTitle(afterSplit[0].trim());
-        String[] split2 = afterSplit[1].split(",", -2);
+        try {
+            String[] split2 = afterSplit[1].split(",", -2);
 
-        for (String s2 : split2) {
-            if (!s2.equalsIgnoreCase(",")) actors.add(s2.trim());
+            for (String s2 : split2) {
+                if (!s2.equalsIgnoreCase(",")) actors.add(s2.trim());
+            }
+        } catch (Exception e) {
         }
+        ;
+
 
     }
 

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class MainStoryTest {
     MainStory ms = null;
@@ -52,6 +53,12 @@ public class MainStoryTest {
         testList.add("Bibliotekarz");
         testList.add("System");
         assertEquals(testList, ms.getActors());
+    }
+
+    @Test
+    public void testNoActors() {
+        ms.readTitle("Bibliotekarz dodaje nową pozycję    ");
+        assertTrue(ms.getActors().isEmpty());
     }
 
 
