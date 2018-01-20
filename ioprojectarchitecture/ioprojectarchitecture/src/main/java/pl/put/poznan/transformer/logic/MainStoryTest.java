@@ -16,7 +16,9 @@ public class MainStoryTest {
     @Before
     public void setUp() throws Exception {
         ms = new MainStory();
+        ms.transformToPoints("src/main/java/pl/put/poznan/transformer/app/test.txt");
         ms.readTitle("Bibliotekarz dodaje nową pozycję Aktorzy: Bibliotekarz, System");
+
     }
 
     @After
@@ -61,8 +63,24 @@ public class MainStoryTest {
         assertTrue(ms.getActors().isEmpty());
     }
 
+    //można mockito, ale po co...
+    @Test
+    public void testTestowy() throws IOException {
+        ms.transformToPoints("src/main/java/pl/put/poznan/transformer/app/test.txt");
+        assertEquals(2, ms.getKeyWorldsCount());
+    }
 
+    @Test
+    public void testFindDepths() throws IOException {
+        ArrayList points = new ArrayList<String>();
+        points = (ArrayList) ms.readFile("src/main/java/pl/put/poznan/transformer/app/test.txt");
+        assertTrue(ms.findDepths(points).contains(4));
+    }
 
-
+    @Test
+    public void testKeywords() throws IOException {
+        ms.transformToPoints("src/main/java/pl/put/poznan/transformer/app/test2.txt");
+        assertEquals(0, ms.getKeyWorldsCount());
+    }
 }
 

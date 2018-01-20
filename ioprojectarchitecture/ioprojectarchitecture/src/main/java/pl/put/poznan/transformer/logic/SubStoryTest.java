@@ -20,9 +20,4 @@ public class SubStoryTest {
         assertTrue(s.getPointList().contains(p));
     }
 
-    @Test
-    public void testEmptyPoint() throws Exception {
-
-    }
-
 }
